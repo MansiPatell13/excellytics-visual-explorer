@@ -207,7 +207,7 @@ const SignUp = () => {
                 <Label htmlFor="securityQuestion" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Security Question
                 </Label>
-                <Input id="securityQuestion" name="securityQuestion" type="text" value={formData.securityQuestion} onChange={handleInputChange} placeholder="Enter a security question" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                <Input id="securityQuestion" name="securityQuestion" type="text" value={formData.securityQuestion} onChange={handleInputChange} placeholder="Enter a security question" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
               </div>
 
               <div className="space-y-2">
