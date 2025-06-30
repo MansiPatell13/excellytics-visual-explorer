@@ -165,7 +165,7 @@ const ForgotPassword = () => {
                   <Label htmlFor="securityAnswer" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Your Answer
                   </Label>
-                  <Input id="securityAnswer" name="securityAnswer" type="text" value={securityAnswer} onChange={e => setSecurityAnswer(e.target.value)} placeholder="Enter your answer" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                  <Input id="securityAnswer" name="securityAnswer" type="text" value={securityAnswer} onChange={e => setSecurityAnswer(e.target.value)} placeholder="Enter your answer" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
                 </div>
 
                 <div className="flex gap-3">
