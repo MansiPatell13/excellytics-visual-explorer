@@ -140,12 +140,55 @@ const ChartsPreviewSection = () => {
   };
 
   return (
-    <section id="charts" className="py-20 lg:py-32 bg-white dark:bg-gray-900 relative overflow-hidden">
-      {/* Background Pattern */}
+    <section className="py-16 bg-white dark:bg-gray-900 relative overflow-hidden">
+      {/* Enhanced Background Pattern */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 opacity-40 dark:opacity-20" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.03'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }} />
+        <motion.div 
+          className="absolute inset-0 opacity-40 dark:opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.03'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}
+          animate={{ 
+            backgroundPosition: ['0% 0%', '100% 100%']
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        
+        {/* Floating chart icons */}
+        <motion.div
+          className="absolute top-20 left-20 text-4xl opacity-20"
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          📊
+        </motion.div>
+        
+        <motion.div
+          className="absolute bottom-20 right-20 text-3xl opacity-20"
+          animate={{ 
+            y: [0, 15, 0],
+            rotate: [0, -10, 0]
+          }}
+          transition={{ 
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        >
+          📈
+        </motion.div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -154,8 +197,29 @@ const ChartsPreviewSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
+          <motion.div
+            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-excellytics-green-100 to-excellytics-blue-100 dark:from-excellytics-green-900/30 dark:to-excellytics-blue-900/30 rounded-full border border-excellytics-green-200 dark:border-excellytics-green-700 mb-6"
+            animate={{ 
+              scale: [1, 1.05, 1],
+              boxShadow: [
+                "0 0 0 0 rgba(34, 197, 94, 0.2)",
+                "0 0 0 10px rgba(34, 197, 94, 0)",
+                "0 0 0 0 rgba(34, 197, 94, 0.2)"
+              ]
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            <motion.span 
+              className="text-sm font-medium text-excellytics-green-700 dark:text-excellytics-green-300"
+              animate={{ opacity: [1, 0.7, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              📊 Live Preview
+            </motion.span>
+          </motion.div>
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             <span className="gradient-text">Sample Visualizations</span>
             <br />
@@ -179,61 +243,153 @@ const ChartsPreviewSection = () => {
               variants={itemVariants}
               className="group relative"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-excellytics-green-200 dark:hover:border-excellytics-green-800">
-                {/* Chart Container */}
-                <div className="relative mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-excellytics-green-500/5 to-excellytics-blue-500/5" />
+              <motion.div 
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-excellytics-green-200 dark:hover:border-excellytics-green-800 overflow-hidden"
+                whileHover={{ y: -8 }}
+              >
+                {/* Chart Container with enhanced styling */}
+                <div className="relative mb-6 p-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-br from-excellytics-green-500/5 to-excellytics-blue-500/5"
+                    animate={{ 
+                      background: [
+                        "linear-gradient(45deg, rgba(34, 197, 94, 0.05), rgba(59, 130, 246, 0.05))",
+                        "linear-gradient(45deg, rgba(59, 130, 246, 0.05), rgba(168, 85, 247, 0.05))",
+                        "linear-gradient(45deg, rgba(168, 85, 247, 0.05), rgba(34, 197, 94, 0.05))"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  
                   <div className="relative z-10">
                     {chart.component}
                   </div>
+                  
+                  {/* Floating elements over chart */}
+                  <motion.div
+                    className="absolute top-2 right-2 w-3 h-3 bg-excellytics-green-400 rounded-full opacity-60"
+                    animate={{ 
+                      scale: [1, 1.5, 1],
+                      opacity: [0.6, 1, 0.6]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.3
+                    }}
+                  />
                 </div>
 
-                {/* Content */}
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3 group-hover:text-excellytics-green-600 dark:group-hover:text-excellytics-green-400 transition-colors">
-                    {chart.title}
-                  </h3>
+                {/* Enhanced Content */}
+                <div className="relative">
+                  <div className="flex items-center mb-3">
+                    <motion.div
+                      className="w-2 h-2 bg-excellytics-green-500 rounded-full mr-3"
+                      animate={{ 
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.5, 1]
+                      }}
+                      transition={{ 
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: index * 0.2
+                      }}
+                    />
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-excellytics-green-600 dark:group-hover:text-excellytics-green-400 transition-colors">
+                      {chart.title}
+                    </h3>
+                  </div>
                   <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                     {chart.description}
                   </p>
                 </div>
 
-                {/* Hover Glow Effect */}
+                {/* Enhanced Hover Glow Effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-excellytics-green-500/10 to-excellytics-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   initial={false}
                 />
-              </div>
+                
+                {/* Corner decoration */}
+                <motion.div
+                  className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-excellytics-green-400/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100"
+                  initial={false}
+                  animate={{ 
+                    rotate: [0, 90, 180, 270, 360]
+                  }}
+                  transition={{ 
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Features List */}
+        {/* Enhanced Features List */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mt-16 text-center"
+          className="mt-12"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
-              <svg className="w-5 h-5 text-excellytics-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Interactive & Responsive</span>
-            </div>
-            <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
-              <svg className="w-5 h-5 text-excellytics-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>High-Quality Exports</span>
-            </div>
-            <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
-              <svg className="w-5 h-5 text-excellytics-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span>Customizable Styling</span>
-            </div>
+            {[
+              { icon: '⚡', text: 'Interactive & Responsive', color: 'text-excellytics-green-500' },
+              { icon: '📥', text: 'High-Quality Exports', color: 'text-excellytics-blue-500' },
+              { icon: '🎨', text: 'Customizable Styling', color: 'text-purple-500' }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl"
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: "rgba(34, 197, 94, 0.05)"
+                }}
+                animate={{ 
+                  y: [0, -3, 0]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: index * 0.3
+                }}
+              >
+                <motion.span 
+                  className="text-2xl"
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 10, -10, 0]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: index * 0.5
+                  }}
+                >
+                  {feature.icon}
+                </motion.span>
+                <span className="font-medium">{feature.text}</span>
+                <motion.div
+                  className={`w-2 h-2 ${feature.color} rounded-full`}
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{ 
+                    duration: 1.5,
+                    repeat: Infinity,
+                    delay: index * 0.4
+                  }}
+                />
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

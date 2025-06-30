@@ -68,23 +68,36 @@ const HowItWorksSection = () => {
     }
   };
 
-  const lineVariants = {
-    hidden: { scaleY: 0 },
-    visible: {
-      scaleY: 1,
-      transition: {
-        duration: 1,
-        ease: "easeInOut"
-      }
-    }
-  };
-
   return (
-    <section id="how-it-works" className="py-20 lg:py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
-      {/* Background Elements */}
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
+      {/* Enhanced Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-10 w-32 h-32 bg-excellytics-green-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-10 w-40 h-40 bg-excellytics-blue-400/10 rounded-full blur-3xl" />
+        <motion.div 
+          className="absolute top-1/4 left-10 w-32 h-32 bg-excellytics-green-400/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.3, 1],
+            x: [0, 50, 0],
+            opacity: [0.3, 0.7, 0.3]
+          }}
+          transition={{ duration: 6, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-10 w-40 h-40 bg-excellytics-blue-400/10 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1.3, 1, 1.3],
+            x: [0, -30, 0],
+            opacity: [0.7, 0.3, 0.7]
+          }}
+          transition={{ duration: 6, repeat: Infinity, delay: 3 }}
+        />
+        
+        {/* Connecting Line Graphics */}
+        <motion.div
+          className="absolute left-1/2 top-1/4 w-1 h-1/2 bg-gradient-to-b from-excellytics-green-300/20 to-excellytics-blue-300/20"
+          initial={{ scaleY: 0 }}
+          animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+          transition={{ duration: 2, delay: 1 }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -93,8 +106,28 @@ const HowItWorksSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
+          <motion.div
+            className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 rounded-full border border-excellytics-green-200 dark:border-excellytics-green-700 mb-6 shadow-sm"
+            animate={{ 
+              boxShadow: [
+                "0 0 0 0 rgba(34, 197, 94, 0)",
+                "0 0 0 10px rgba(34, 197, 94, 0.1)",
+                "0 0 0 0 rgba(34, 197, 94, 0)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <motion.span 
+              className="text-sm font-medium text-excellytics-green-700 dark:text-excellytics-green-300"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              ⚡ Simple Process
+            </motion.span>
+          </motion.div>
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-gray-800 dark:text-white">How</span>
             <span className="gradient-text"> Excellytics </span>
@@ -113,11 +146,13 @@ const HowItWorksSection = () => {
             animate={isInView ? "visible" : "hidden"}
             className="relative"
           >
-            {/* Connecting Line */}
+            {/* Enhanced Connecting Line */}
             <div className="absolute left-8 top-16 bottom-16 w-0.5 bg-gradient-to-b from-excellytics-green-500 via-excellytics-blue-500 to-purple-500 hidden lg:block">
               <motion.div
-                variants={lineVariants}
                 className="w-full h-full bg-gradient-to-b from-excellytics-green-500 via-excellytics-blue-500 to-purple-500 origin-top"
+                initial={{ scaleY: 0 }}
+                animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+                transition={{ duration: 2, delay: 0.5 }}
               />
             </div>
 
@@ -125,29 +160,60 @@ const HowItWorksSection = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="relative flex items-start mb-12 last:mb-0"
+                className="relative flex items-start mb-8 last:mb-0"
               >
-                {/* Step Number Circle */}
+                {/* Enhanced Step Number Circle */}
                 <div className="flex-shrink-0 relative z-10">
                   <motion.div
-                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center text-white font-bold text-lg shadow-lg`}
+                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center text-white font-bold text-lg shadow-lg border-4 border-white dark:border-gray-900`}
                     whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
+                    animate={{ 
+                      boxShadow: [
+                        "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                        "0 0 0 20px rgba(34, 197, 94, 0)",
+                        "0 0 0 0 rgba(34, 197, 94, 0)"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: index * 0.3
+                    }}
                   >
                     {step.number}
                   </motion.div>
                 </div>
 
-                {/* Content */}
+                {/* Enhanced Content */}
                 <div className="ml-8 flex-1">
                   <motion.div
-                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group"
+                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group relative overflow-hidden"
                     whileHover={{ y: -4 }}
                   >
-                    <div className="flex items-start">
+                    {/* Animated Background */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-r ${step.color} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 rounded-2xl`}
+                      initial={false}
+                      whileHover={{ opacity: 0.1 }}
+                    />
+
+                    <div className="flex items-start relative z-10">
                       <div className="flex-1">
                         <div className="flex items-center mb-3">
-                          <span className="text-2xl mr-3">{step.icon}</span>
+                          <motion.span 
+                            className="text-3xl mr-4"
+                            animate={{ 
+                              scale: [1, 1.2, 1],
+                              rotate: [0, 10, -10, 0]
+                            }}
+                            transition={{ 
+                              duration: 2,
+                              repeat: Infinity,
+                              delay: index * 0.5
+                            }}
+                          >
+                            {step.icon}
+                          </motion.span>
                           <h3 className="text-xl lg:text-2xl font-semibold text-gray-800 dark:text-white group-hover:text-excellytics-green-600 dark:group-hover:text-excellytics-green-400 transition-colors">
                             {step.title}
                           </h3>
@@ -158,9 +224,12 @@ const HowItWorksSection = () => {
                       </div>
                     </div>
 
-                    {/* Hover Effect */}
+                    {/* Progress indicator */}
                     <motion.div
-                      className={`absolute inset-0 bg-gradient-to-r ${step.color} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}
+                      className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-excellytics-green-400 to-excellytics-blue-400 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={isInView ? { width: '100%' } : { width: 0 }}
+                      transition={{ delay: 1 + index * 0.2, duration: 0.8 }}
                     />
                   </motion.div>
                 </div>
@@ -169,19 +238,34 @@ const HowItWorksSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Enhanced Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="text-center mt-12"
         >
           <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="group px-8 py-4 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            Try It Now - It's Free!
+            <motion.div
+              className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20"
+              initial={false}
+              animate={{ x: ['-100%', '100%'] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            />
+            <span className="relative z-10 flex items-center justify-center">
+              Try It Now - It's Free!
+              <motion.span
+                className="ml-2"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                🚀
+              </motion.span>
+            </span>
           </motion.button>
         </motion.div>
       </div>
