@@ -193,7 +193,7 @@ const SignUp = () => {
                 <Label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Password
                 </Label>
-                <Input id="password" name="password" type="password" value={formData.password} onChange={handleInputChange} placeholder="Create a password" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                <Input id="password" name="password" type="password" value={formData.password} onChange={handleInputChange} placeholder="Create a password" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
               </div>
 
               <div className="space-y-2">
@@ -214,7 +214,7 @@ const SignUp = () => {
                 <Label htmlFor="securityAnswer" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Security Answer
                 </Label>
-                <Input id="securityAnswer" name="securityAnswer" type="text" value={formData.securityAnswer} onChange={handleInputChange} placeholder="Enter your answer" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                <Input id="securityAnswer" name="securityAnswer" type="text" value={formData.securityAnswer} onChange={handleInputChange} placeholder="Enter your answer" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
               </div>
 
               <div className="flex items-start space-x-2 text-sm">
