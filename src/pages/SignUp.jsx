@@ -179,14 +179,14 @@ const SignUp = () => {
                 <Label htmlFor="username" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Username
                 </Label>
-                <Input id="username" name="username" type="text" value={formData.username} onChange={handleInputChange} placeholder="Enter your username" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                <Input id="username" name="username" type="text" value={formData.username} onChange={handleInputChange} placeholder="Enter your username" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Email Address
                 </Label>
-                <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email" className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200" required />
+                <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email" required className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200 px-[8px]" />
               </div>
 
               <div className="space-y-2">
