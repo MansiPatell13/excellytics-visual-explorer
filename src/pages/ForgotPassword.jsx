@@ -15,7 +15,9 @@ const ForgotPassword = () => {
   });
   
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [securityAnswer, setSecurityAnswer] = useState('');
+  const [step, setStep] = useState('email'); // 'email', 'security', 'success'
+  const [securityQuestion, setSecurityQuestion] = useState('');
 
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
@@ -29,11 +31,26 @@ const ForgotPassword = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleEmailSubmit = (e) => {
     e.preventDefault();
-    console.log('Password reset requested for:', email);
-    setIsSubmitted(true);
-    // Handle password reset logic here
+    console.log('Email submitted:', email);
+    // Simulate fetching security question based on email
+    setSecurityQuestion('What was the name of your first pet?');
+    setStep('security');
+  };
+
+  const handleSecuritySubmit = (e) => {
+    e.preventDefault();
+    console.log('Security answer submitted:', securityAnswer);
+    setStep('success');
+    // Handle security question verification and password reset logic here
+  };
+
+  const resetForm = () => {
+    setStep('email');
+    setEmail('');
+    setSecurityAnswer('');
+    setSecurityQuestion('');
   };
 
   return (
@@ -82,7 +99,9 @@ const ForgotPassword = () => {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="text-2xl font-bold text-gray-900 dark:text-white mb-2"
               >
-                {isSubmitted ? 'Check Your Email' : 'Forgot Password?'}
+                {step === 'email' && 'Forgot Password?'}
+                {step === 'security' && 'Security Question'}
+                {step === 'success' && 'Check Your Email'}
               </motion.h1>
               
               <motion.p
@@ -91,19 +110,19 @@ const ForgotPassword = () => {
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="text-gray-600 dark:text-gray-300"
               >
-                {isSubmitted 
-                  ? 'We\'ve sent a password reset link to your email address.'
-                  : 'Enter your email address and we\'ll send you a link to reset your password.'
-                }
+                {step === 'email' && 'Enter your email address and we\'ll send you a link to reset your password.'}
+                {step === 'security' && 'Please answer your security question to verify your identity.'}
+                {step === 'success' && 'We\'ve sent a password reset link to your email address.'}
               </motion.p>
             </div>
 
-            {!isSubmitted ? (
+            {/* Email Step */}
+            {step === 'email' && (
               <motion.form
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                onSubmit={handleSubmit}
+                onSubmit={handleEmailSubmit}
                 className="space-y-6"
               >
                 <div className="space-y-2">
@@ -126,10 +145,66 @@ const ForgotPassword = () => {
                   type="submit"
                   className="w-full h-12 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 hover:from-excellytics-green-600 hover:to-excellytics-blue-600 text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Send Reset Link
+                  Continue
                 </Button>
               </motion.form>
-            ) : (
+            )}
+
+            {/* Security Question Step */}
+            {step === 'security' && (
+              <motion.form
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                onSubmit={handleSecuritySubmit}
+                className="space-y-6"
+              >
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Security Question
+                  </Label>
+                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700">
+                    <p className="text-gray-800 dark:text-gray-200">{securityQuestion}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="securityAnswer" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Your Answer
+                  </Label>
+                  <Input
+                    id="securityAnswer"
+                    name="securityAnswer"
+                    type="text"
+                    value={securityAnswer}
+                    onChange={(e) => setSecurityAnswer(e.target.value)}
+                    placeholder="Enter your answer"
+                    className="h-12 border-2 focus:border-excellytics-green-500 dark:focus:border-excellytics-green-400 transition-all duration-200"
+                    required
+                  />
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    type="button"
+                    onClick={resetForm}
+                    variant="outline"
+                    className="flex-1 h-12 border-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="flex-1 h-12 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 hover:from-excellytics-green-600 hover:to-excellytics-blue-600 text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Verify
+                  </Button>
+                </div>
+              </motion.form>
+            )}
+
+            {/* Success Step */}
+            {step === 'success' && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -144,7 +219,7 @@ const ForgotPassword = () => {
                 <p className="text-gray-600 dark:text-gray-300">
                   Didn't receive the email? Check your spam folder or{' '}
                   <button
-                    onClick={() => setIsSubmitted(false)}
+                    onClick={resetForm}
                     className="text-excellytics-green-600 dark:text-excellytics-green-400 hover:text-excellytics-green-700 dark:hover:text-excellytics-green-300 transition-colors duration-200 font-medium"
                   >
                     try again
