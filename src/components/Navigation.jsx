@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Navigation = ({ darkMode, toggleDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -89,16 +89,18 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
               </motion.div>
             </motion.button>
 
-            <motion.button
-              className="px-6 py-2 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-medium hover:shadow-lg transition-all duration-200 hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              Get Started
-            </motion.button>
+            <Link to="/signin">
+              <motion.button
+                className="px-6 py-2 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-medium hover:shadow-lg transition-all duration-200 hover:scale-105"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                Sign In
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button and Dark Mode Toggle */}
@@ -171,14 +173,16 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
                     {item.name}
                   </motion.button>
                 ))}
-                <motion.button
-                  className="w-full mt-4 px-6 py-2 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-medium hover:shadow-lg transition-all duration-200"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  Get Started
-                </motion.button>
+                <Link to="/signin">
+                  <motion.button
+                    className="w-full mt-4 px-6 py-2 bg-gradient-to-r from-excellytics-green-500 to-excellytics-blue-500 text-white rounded-full font-medium hover:shadow-lg transition-all duration-200"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    Sign In
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           )}
