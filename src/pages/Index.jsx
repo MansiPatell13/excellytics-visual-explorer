@@ -40,21 +40,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navigation />
-      <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HeroSection />
-        <FeaturesSection />
-        <HowItWorksSection />
-        <ChartsPreviewSection />
-        <CTASection />
-        <Footer />
-      </motion.div>
+      {/* Add padding-top to account for fixed navbar */}
+      <div className="pt-20">
+        <Navigation darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <HeroSection />
+          <FeaturesSection />
+          <HowItWorksSection />
+          <ChartsPreviewSection />
+          <CTASection />
+          <Footer />
+        </motion.div>
+      </div>
     </div>
   );
 };
