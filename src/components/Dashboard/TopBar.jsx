@@ -24,7 +24,7 @@ const TopBar = ({ onMenuToggle }) => {
           </button>
 
           {/* Upgrade to Pro Button */}
-          <button className="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:from-green-600 hover:to-blue-600 transition-colors">
+          <button className="hidden sm:flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors">
             <span>Upgrade to Pro</span>
           </button>
 
@@ -36,7 +36,7 @@ const TopBar = ({ onMenuToggle }) => {
 
           {/* User Avatar */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <span className="text-white font-semibold text-sm">U</span>
             </div>
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Home, Folder, Users, Building, Star } from 'lucide-react';
 
@@ -48,7 +47,7 @@ const Sidebar = ({ isOpen, onToggle, onCreateNew }) => {
           {/* Header */}
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">E</span>
               </div>
               <span className="font-semibold text-gray-900">Excel Analytics</span>
@@ -57,12 +56,12 @@ const Sidebar = ({ isOpen, onToggle, onCreateNew }) => {
 
           {/* Action Buttons */}
           <div className="p-4 space-y-3">
-            <button className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:from-green-600 hover:to-blue-600 transition-colors">
+            <button className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors">
               Upgrade to Pro
             </button>
             <button 
               onClick={onCreateNew}
-              className="w-full bg-green-100 text-green-700 px-4 py-2 rounded-lg font-medium hover:bg-green-200 transition-colors"
+              className="w-full bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 transition-colors"
             >
               Create new
             </button>

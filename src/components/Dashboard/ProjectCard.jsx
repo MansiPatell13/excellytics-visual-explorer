@@ -10,11 +10,13 @@ const ProjectCard = ({ project, onOpen, onAction }) => {
     setShowDropdown(false);
   };
 
+  const IconComponent = project.icon;
+
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200 relative">
       {/* Project Icon */}
-      <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg mb-4">
-        <span className="text-2xl">{project.icon}</span>
+      <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
+        <IconComponent className="w-6 h-6 text-green-600" />
       </div>
 
       {/* Project Info */}
@@ -27,7 +29,7 @@ const ProjectCard = ({ project, onOpen, onAction }) => {
       <div className="flex items-center justify-between">
         <button 
           onClick={onOpen}
-          className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:from-green-600 hover:to-blue-600 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
         >
           Open project
         </button>

@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Folder, BarChart3, TrendingUp, FileText } from 'lucide-react';
 import Sidebar from '../components/Dashboard/Sidebar';
 import TopBar from '../components/Dashboard/TopBar';
 import ProjectCard from '../components/Dashboard/ProjectCard';
@@ -15,28 +15,28 @@ const Dashboard = () => {
       name: 'Personal',
       type: 'folder',
       lastModified: '2 days ago',
-      icon: '📁'
+      icon: Folder
     },
     {
       id: 2,
       name: 'Sales Analytics',
       type: 'project',
       lastModified: '1 week ago',
-      icon: '📊'
+      icon: BarChart3
     },
     {
       id: 3,
       name: 'Marketing Data',
       type: 'project',
       lastModified: '3 days ago',
-      icon: '📈'
+      icon: TrendingUp
     },
     {
       id: 4,
       name: 'Team Reports',
       type: 'folder',
       lastModified: '5 days ago',
-      icon: '📋'
+      icon: FileText
     }
   ];
 
