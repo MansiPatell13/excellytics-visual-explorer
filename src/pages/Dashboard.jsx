@@ -49,7 +49,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="h-screen bg-gray-50 flex overflow-hidden">
       <Sidebar 
         isOpen={isSidebarOpen} 
         onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -59,7 +59,7 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col">
         <TopBar onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
         
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 overflow-auto">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
             

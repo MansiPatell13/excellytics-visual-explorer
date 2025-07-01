@@ -72,7 +72,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-inter pt-20;
+    @apply bg-background text-foreground font-inter;
   }
 }
 
@@ -82,7 +82,7 @@
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-excellytics-green-600 to-excellytics-blue-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent;
   }
 }
 
@@ -96,9 +96,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-excellytics-green-500 rounded-full;
+  @apply bg-green-500 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-excellytics-green-600;
+  @apply bg-green-600;
 }
