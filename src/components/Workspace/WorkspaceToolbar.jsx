@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { 
   BarChart3, 
   LineChart, 
   PieChart, 
-  Scatter,
+  ChartScatter,
   Upload, 
   Download, 
   Undo, 
@@ -25,7 +24,7 @@ const WorkspaceToolbar = ({
     { type: 'bar', icon: BarChart3, label: 'Bar Chart' },
     { type: 'line', icon: LineChart, label: 'Line Chart' },
     { type: 'pie', icon: PieChart, label: 'Pie Chart' },
-    { type: 'scatter', icon: Scatter, label: 'Scatter Plot' }
+    { type: 'scatter', icon: ChartScatter, label: 'Scatter Plot' }
   ];
 
   const handleChartAdd = (type) => {
