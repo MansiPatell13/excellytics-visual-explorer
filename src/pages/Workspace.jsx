@@ -8,21 +8,60 @@ import { Menu } from 'lucide-react';
 const Workspace = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedSheet, setSelectedSheet] = useState(null);
+  const [tableData, setTableData] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([
     {
       id: 1,
       name: 'Sales_Data.xlsx',
       sheets: [
-        { id: 'sheet1', name: 'Q1 Sales', tables: ['Sales Summary', 'Regional Data'] },
-        { id: 'sheet2', name: 'Q2 Sales', tables: ['Monthly Reports', 'Product Analysis'] }
+        { 
+          id: 'sheet1', 
+          name: 'Q1 Sales', 
+          tables: ['Sales Summary', 'Regional Data'],
+          data: [
+            { Product: 'Laptop', Region: 'North', Sales: 15000, Quantity: 25 },
+            { Product: 'Desktop', Region: 'South', Sales: 12000, Quantity: 20 },
+            { Product: 'Tablet', Region: 'East', Sales: 8000, Quantity: 40 },
+            { Product: 'Phone', Region: 'West', Sales: 20000, Quantity: 100 },
+            { Product: 'Monitor', Region: 'North', Sales: 5000, Quantity: 30 }
+          ]
+        },
+        { 
+          id: 'sheet2', 
+          name: 'Q2 Sales', 
+          tables: ['Monthly Reports', 'Product Analysis'],
+          data: [
+            { Month: 'April', Revenue: 45000, Expenses: 20000, Profit: 25000 },
+            { Month: 'May', Revenue: 52000, Expenses: 22000, Profit: 30000 },
+            { Month: 'June', Revenue: 48000, Expenses: 21000, Profit: 27000 }
+          ]
+        }
       ]
     },
     {
       id: 2,
       name: 'Marketing_Analytics.xlsx',
       sheets: [
-        { id: 'sheet3', name: 'Campaign Data', tables: ['Social Media', 'Email Marketing'] },
-        { id: 'sheet4', name: 'ROI Analysis', tables: ['Budget Allocation', 'Performance Metrics'] }
+        { 
+          id: 'sheet3', 
+          name: 'Campaign Data', 
+          tables: ['Social Media', 'Email Marketing'],
+          data: [
+            { Campaign: 'Facebook Ads', Impressions: 50000, Clicks: 2500, Conversions: 125 },
+            { Campaign: 'Google Ads', Impressions: 75000, Clicks: 3750, Conversions: 200 },
+            { Campaign: 'Instagram', Impressions: 30000, Clicks: 1800, Conversions: 90 }
+          ]
+        },
+        { 
+          id: 'sheet4', 
+          name: 'ROI Analysis', 
+          tables: ['Budget Allocation', 'Performance Metrics'],
+          data: [
+            { Channel: 'Social Media', Budget: 10000, Spend: 8500, ROI: 2.5 },
+            { Channel: 'Search Ads', Budget: 15000, Spend: 14200, ROI: 3.2 },
+            { Channel: 'Email', Budget: 5000, Spend: 4800, ROI: 4.1 }
+          ]
+        }
       ]
     }
   ]);
@@ -39,7 +78,15 @@ const Workspace = () => {
       id: Date.now(),
       name: file.name,
       sheets: [
-        { id: `sheet${Date.now()}`, name: 'Sheet1', tables: ['Table1', 'Table2'] }
+        { 
+          id: `sheet${Date.now()}`, 
+          name: 'Sheet1', 
+          tables: ['Table1', 'Table2'],
+          data: [
+            { Column1: 'Sample', Column2: 'Data', Column3: 100 },
+            { Column1: 'Example', Column2: 'Values', Column3: 200 }
+          ]
+        }
       ]
     };
     setUploadedFiles([...uploadedFiles, newFile]);
@@ -47,6 +94,22 @@ const Workspace = () => {
 
   const handleSheetSelect = (sheet) => {
     setSelectedSheet(sheet);
+    setTableData(sheet.data || null);
+  };
+
+  const handleTableDataChange = (newData) => {
+    setTableData(newData);
+    // Update the data in the uploaded files as well
+    setUploadedFiles(prev => 
+      prev.map(file => ({
+        ...file,
+        sheets: file.sheets.map(sheet => 
+          sheet.id === selectedSheet.id 
+            ? { ...sheet, data: newData }
+            : sheet
+        )
+      }))
+    );
   };
 
   const addChart = (type) => {
@@ -129,6 +192,8 @@ const Workspace = () => {
             setItems={setCanvasItems}
             gridBackground={gridBackground}
             selectedSheet={selectedSheet}
+            tableData={tableData}
+            onTableDataChange={handleTableDataChange}
           />
         </div>
       </div>

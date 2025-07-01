@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
 import ChartBlock from './ChartBlock';
+import EditableTable from './EditableTable';
 
-const WorkspaceCanvas = ({ items, setItems, gridBackground, selectedSheet }) => {
+const WorkspaceCanvas = ({ items, setItems, gridBackground, selectedSheet, tableData, onTableDataChange }) => {
   const [draggedItem, setDraggedItem] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [showTable, setShowTable] = useState(false);
 
   const handleMouseDown = (e, item) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -47,6 +49,13 @@ const WorkspaceCanvas = ({ items, setItems, gridBackground, selectedSheet }) => 
     ));
   };
 
+  // Show table when a sheet is selected and has data
+  React.useEffect(() => {
+    if (selectedSheet && tableData && tableData.length > 0) {
+      setShowTable(true);
+    }
+  }, [selectedSheet, tableData]);
+
   return (
     <div 
       className={`
@@ -77,11 +86,30 @@ const WorkspaceCanvas = ({ items, setItems, gridBackground, selectedSheet }) => 
           <p className="text-sm text-gray-600">
             {selectedSheet.tables?.length || 0} tables available
           </p>
+          {tableData && tableData.length > 0 && (
+            <button
+              onClick={() => setShowTable(!showTable)}
+              className="mt-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+            >
+              {showTable ? 'Hide Table' : 'Show Table'}
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Editable Table */}
+      {showTable && tableData && tableData.length > 0 && (
+        <div className="absolute top-20 left-4 right-4 z-20">
+          <EditableTable
+            data={tableData}
+            onDataChange={onTableDataChange}
+            onClose={() => setShowTable(false)}
+          />
         </div>
       )}
 
       {/* Empty State */}
-      {items.length === 0 && (
+      {items.length === 0 && !showTable && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -93,11 +121,11 @@ const WorkspaceCanvas = ({ items, setItems, gridBackground, selectedSheet }) => 
               Start Creating Your Analysis
             </h3>
             <p className="text-gray-600 mb-4">
-              Add charts and visualizations to analyze your Excel data
+              Upload Excel files and create charts to analyze your data
             </p>
             {!selectedSheet && (
               <p className="text-sm text-gray-500">
-                Select a sheet from the sidebar to begin
+                Upload an Excel file to begin
               </p>
             )}
           </div>
