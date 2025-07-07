@@ -12,66 +12,70 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      name: 'Sales Analytics',
-      type: 'project',
-      lastModified: '2 days ago',
-      icon: BarChart3,
-      chartType: 'bar',
-      fileName: 'sales_data.xlsx'
-    },
-    {
-      id: 2,
-      name: 'Marketing Data',
-      type: 'project',
-      lastModified: '1 week ago',
-      icon: TrendingUp,
-      chartType: 'line',
-      fileName: 'marketing_metrics.xlsx'
-    },
-    {
-      id: 3,
-      name: 'Personal',
-      type: 'folder',
-      lastModified: '3 days ago',
-      icon: Folder
-    },
-    {
-      id: 4,
-      name: 'Team Reports',
-      type: 'folder',
-      lastModified: '5 days ago',
-      icon: FileText
-    }
-  ]);
+  const [projects, setProjects] = useState([]);
 
   // Load projects from localStorage on component mount
   useEffect(() => {
+    console.log('Loading projects from localStorage...');
     const savedProjects = localStorage.getItem('projects');
+    const defaultProjects = [
+      {
+        id: 1,
+        name: 'Sales Analytics',
+        type: 'project',
+        lastModified: '2 days ago',
+        icon: BarChart3,
+        chartType: 'bar',
+        fileName: 'sales_data.xlsx'
+      },
+      {
+        id: 2,
+        name: 'Marketing Data',
+        type: 'project',
+        lastModified: '1 week ago',
+        icon: TrendingUp,
+        chartType: 'line',
+        fileName: 'marketing_metrics.xlsx'
+      },
+      {
+        id: 3,
+        name: 'Personal',
+        type: 'folder',
+        lastModified: '3 days ago',
+        icon: Folder
+      },
+      {
+        id: 4,
+        name: 'Team Reports',
+        type: 'folder',
+        lastModified: '5 days ago',
+        icon: FileText
+      }
+    ];
+
     if (savedProjects) {
       const parsedProjects = JSON.parse(savedProjects);
+      console.log('Loaded projects from localStorage:', parsedProjects);
       // Merge with default projects, avoiding duplicates
-      const mergedProjects = [...projects];
-      parsedProjects.forEach(savedProject => {
-        if (!mergedProjects.find(p => p.id === savedProject.id)) {
-          mergedProjects.unshift(savedProject);
-        }
-      });
+      const mergedProjects = [...parsedProjects, ...defaultProjects];
       setProjects(mergedProjects);
+    } else {
+      setProjects(defaultProjects);
     }
   }, []);
 
   // Save projects to localStorage whenever projects change
   useEffect(() => {
     const projectsToSave = projects.filter(p => p.type === 'project' && p.data);
-    localStorage.setItem('projects', JSON.stringify(projectsToSave));
+    if (projectsToSave.length > 0) {
+      console.log('Saving projects to localStorage:', projectsToSave);
+      localStorage.setItem('projects', JSON.stringify(projectsToSave));
+    }
   }, [projects]);
 
   const handleOpenProject = (project) => {
     if (project.type === 'project') {
-      console.log(`Opening project: ${project.name}`);
+      console.log(`Opening project: ${project.name}`, project);
       toast.success(`Opening ${project.name}...`);
       // Navigate to project visualization page
       navigate(`/project/${project.id}`);
@@ -116,6 +120,7 @@ const Dashboard = () => {
   };
 
   const handleProjectCreate = (projectData) => {
+    console.log('Creating new project:', projectData);
     const newProject = {
       ...projectData,
       type: 'project',
@@ -123,6 +128,7 @@ const Dashboard = () => {
       icon: BarChart3
     };
     setProjects([newProject, ...projects]);
+    toast.success(`Project "${projectData.name}" created successfully!`);
   };
 
   return (

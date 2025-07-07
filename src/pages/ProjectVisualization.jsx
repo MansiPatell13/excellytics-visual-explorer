@@ -13,9 +13,13 @@ const ProjectVisualization = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get project data from localStorage or props
+    console.log('Loading project with ID:', projectId);
+    // Get project data from localStorage
     const savedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    console.log('Saved projects:', savedProjects);
+    
     const currentProject = savedProjects.find(p => p.id === parseInt(projectId));
+    console.log('Found project:', currentProject);
     
     if (currentProject) {
       setProject(currentProject);
@@ -26,8 +30,19 @@ const ProjectVisualization = () => {
     setLoading(false);
   }, [projectId, navigate]);
 
+  const handleBackToDashboard = () => {
+    console.log('Navigating back to dashboard');
+    navigate('/dashboard');
+  };
+
   const renderChart = () => {
-    if (!project || !project.data) return null;
+    if (!project || !project.data) {
+      console.log('No project or data available');
+      return null;
+    }
+
+    console.log('Rendering chart type:', project.chartType);
+    console.log('Chart data:', project.data);
 
     const chartConfig = {
       [project.yAxis]: {
@@ -68,32 +83,34 @@ const ProjectVisualization = () => {
       case 'pie':
         const COLORS = ['#10B981', '#3B82F6', '#8B5CF6', '#F59E0B', '#EF4444'];
         return (
-          <ChartContainer config={chartConfig} className="h-[400px] w-full">
-            <PieChart>
-              <Pie
-                data={project.data}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey={project.yAxis}
-                nameKey={project.xAxis}
-              >
-                {project.data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <ChartTooltip content={<ChartTooltipContent />} />
-            </PieChart>
-          </ChartContainer>
+          <div className="h-[400px] w-full flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={project.data}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={120}
+                  fill="#8884d8"
+                  dataKey={project.yAxis}
+                  nameKey={project.xAxis}
+                >
+                  {project.data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         );
 
       default:
         return (
           <div className="h-[400px] flex items-center justify-center bg-gray-50 rounded-lg">
-            <p className="text-gray-500">Chart type not supported yet</p>
+            <p className="text-gray-500">Chart type "{project.chartType}" not supported yet</p>
           </div>
         );
     }
@@ -113,7 +130,7 @@ const ProjectVisualization = () => {
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Project not found</h2>
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={handleBackToDashboard}
             className="text-green-600 hover:text-green-700"
           >
             Return to Dashboard
@@ -131,7 +148,7 @@ const ProjectVisualization = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={handleBackToDashboard}
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
