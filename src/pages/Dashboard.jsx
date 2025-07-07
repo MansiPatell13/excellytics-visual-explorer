@@ -1,7 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Folder, BarChart3, TrendingUp, FileText, Download, Eye, Share } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Dashboard/Sidebar';
 import TopBar from '../components/Dashboard/TopBar';
 import ProjectCard from '../components/Dashboard/ProjectCard';
@@ -9,6 +9,7 @@ import ProjectCreationModal from '../components/Dashboard/ProjectCreationModal';
 import { toast } from 'sonner';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [projects, setProjects] = useState([
@@ -46,11 +47,37 @@ const Dashboard = () => {
     }
   ]);
 
-  const handleOpenProject = (projectName) => {
-    console.log(`Opening project: ${projectName}`);
-    toast.success(`Opening ${projectName}...`);
-    // Navigate to workspace with project data
-    // This would integrate with your existing Workspace component
+  // Load projects from localStorage on component mount
+  useEffect(() => {
+    const savedProjects = localStorage.getItem('projects');
+    if (savedProjects) {
+      const parsedProjects = JSON.parse(savedProjects);
+      // Merge with default projects, avoiding duplicates
+      const mergedProjects = [...projects];
+      parsedProjects.forEach(savedProject => {
+        if (!mergedProjects.find(p => p.id === savedProject.id)) {
+          mergedProjects.unshift(savedProject);
+        }
+      });
+      setProjects(mergedProjects);
+    }
+  }, []);
+
+  // Save projects to localStorage whenever projects change
+  useEffect(() => {
+    const projectsToSave = projects.filter(p => p.type === 'project' && p.data);
+    localStorage.setItem('projects', JSON.stringify(projectsToSave));
+  }, [projects]);
+
+  const handleOpenProject = (project) => {
+    if (project.type === 'project') {
+      console.log(`Opening project: ${project.name}`);
+      toast.success(`Opening ${project.name}...`);
+      // Navigate to project visualization page
+      navigate(`/project/${project.id}`);
+    } else {
+      toast.info(`Opening folder: ${project.name}`);
+    }
   };
 
   const handleProjectAction = (action, projectName) => {
@@ -131,7 +158,6 @@ const Dashboard = () => {
                 </button>
               </div>
 
-              {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -198,7 +224,6 @@ const Dashboard = () => {
                 </motion.div>
               </div>
 
-              {/* Projects Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {projects.map((project, index) => (
                   <motion.div
@@ -209,14 +234,13 @@ const Dashboard = () => {
                   >
                     <ProjectCard
                       project={project}
-                      onOpen={() => handleOpenProject(project.name)}
+                      onOpen={() => handleOpenProject(project)}
                       onAction={(action) => handleProjectAction(action, project.name)}
                     />
                   </motion.div>
                 ))}
               </div>
 
-              {/* Empty State */}
               {projects.length === 0 && (
                 <motion.div
                   initial={{ opacity: 0 }}
