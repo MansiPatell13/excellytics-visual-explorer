@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import FloatingElements from '../components/FloatingElements';
 import Navigation from '../components/Navigation';
+import { toast } from 'sonner';
+
 const SignIn = () => {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
     return saved === 'true';
@@ -15,6 +18,7 @@ const SignIn = () => {
     email: '',
     password: ''
   });
+
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -25,25 +29,49 @@ const SignIn = () => {
       document.documentElement.classList.remove('dark');
     }
   };
+
   const handleInputChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     console.log('Sign in attempted with:', formData);
-    // Handle sign in logic here
+    
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+
+    // Simulate sign in success and redirect to dashboard
+    toast.success('Sign in successful! Redirecting to dashboard...');
+    
+    // Redirect to dashboard after a short delay
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 1000);
   };
+
   const handleGoogleSignIn = () => {
     console.log('Google sign in clicked');
-    // Handle Google OAuth
+    toast.success('Google sign in successful!');
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 1000);
   };
+
   const handleGithubSignIn = () => {
     console.log('GitHub sign in clicked');
-    // Handle GitHub OAuth
+    toast.success('GitHub sign in successful!');
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 1000);
   };
+
   return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navigation darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       
@@ -222,4 +250,5 @@ const SignIn = () => {
       </div>
     </div>;
 };
+
 export default SignIn;
