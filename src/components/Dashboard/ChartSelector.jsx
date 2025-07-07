@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { BarChart3, LineChart, PieChart, TrendingUp, Radar, Scatter, Activity, Layers } from 'lucide-react';
+import { BarChart3, LineChart, PieChart, TrendingUp, Radar, ChartScatter, Activity, Layers } from 'lucide-react';
 
 const ChartSelector = ({ onSelect, selectedType }) => {
   const chartTypes = [
@@ -9,7 +8,7 @@ const ChartSelector = ({ onSelect, selectedType }) => {
     { id: 'pie', name: 'Pie Chart', icon: PieChart, description: 'Show proportions' },
     { id: 'doughnut', name: 'Doughnut Chart', icon: PieChart, description: 'Proportions with center space' },
     { id: 'radar', name: 'Radar Chart', icon: Radar, description: 'Multi-dimensional data' },
-    { id: 'scatter', name: 'Scatter Plot', icon: Scatter, description: 'Correlation analysis' },
+    { id: 'scatter', name: 'Scatter Plot', icon: ChartScatter, description: 'Correlation analysis' },
     { id: 'bubble', name: 'Bubble Chart', icon: Activity, description: 'Three-dimensional data' },
     { id: 'mixed', name: 'Mixed Chart', icon: Layers, description: 'Combine multiple types' },
     { id: 'polarArea', name: 'Polar Area', icon: TrendingUp, description: 'Circular data visualization' }
